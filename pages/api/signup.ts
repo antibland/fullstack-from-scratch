@@ -20,6 +20,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   } catch (error) {
     res.status(401);
     res.json({ error: "User already exists" });
+    return;
   }
 
   const token = jwt.sign(
