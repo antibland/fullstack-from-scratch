@@ -8,7 +8,7 @@ const GradientLayout = ({
   subtitle,
   title,
   description,
-  roundImage,
+  roundImage = false,
 }) => {
   return (
     <Box
@@ -33,6 +33,7 @@ const GradientLayout = ({
           <Text fontSize="x-sm">{description}</Text>
         </Box>
       </Flex>
+      <Box padding="50px">{children}</Box>
     </Box>
   );
 };
