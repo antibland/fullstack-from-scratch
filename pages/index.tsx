@@ -1,11 +1,10 @@
-import type { NextPage } from "next";
 import { Box, Flex, Text } from "@chakra-ui/layout";
 import { Image } from "@chakra-ui/react";
 import GradientLayout from "../components/gradientLayout";
 import prisma from "../lib/prisma";
 import { useMe } from "../lib/hooks";
 
-const Home: NextPage = ({ artists }: any) => {
+const Home = ({ artists }: any) => {
   const { user, isLoading } = useMe();
 
   return (
@@ -49,7 +48,8 @@ const Home: NextPage = ({ artists }: any) => {
 
 export const getServerSideProps = async () => {
   const artists = await prisma.artist.findMany({});
-  return { props: { artists: JSON.parse(JSON.stringify(artists)) } };
+  const serializedArtists = await JSON.parse(JSON.stringify(artists));
+  return { props: { artists: serializedArtists } };
 };
 
 export default Home;

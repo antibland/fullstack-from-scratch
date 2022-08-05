@@ -55,9 +55,11 @@ export const getServerSideProps = async ({ query, req }) => {
     },
   });
 
+  const serializedPlaylist = await JSON.parse(JSON.stringify(playlist));
+
   return {
     props: {
-      playlist: JSON.parse(JSON.stringify(playlist)),
+      playlist: serializedPlaylist,
     },
   };
 };
