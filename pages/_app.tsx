@@ -1,10 +1,13 @@
+import React from "react";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { StoreProvider } from "easy-peasy";
 import PlayerLayout from "../components/playerLayout";
 import "reset-css";
 import { store } from "../lib/store";
 
-const StoreProviderOverride = StoreProvider as any;
+type Props = StoreProvider["props"] & { children: React.ReactNode };
+const StoreProviderCasted =
+  StoreProvider as unknown as React.ComponentType<Props>;
 
 const theme = extendTheme({
   colors: {
@@ -37,7 +40,7 @@ const theme = extendTheme({
 const MyApp = ({ Component, pageProps }) => {
   return (
     <ChakraProvider theme={theme}>
-      <StoreProviderOverride store={store}>
+      <StoreProviderCasted store={store}>
         {Component.authPage ? (
           <Component {...pageProps} />
         ) : (
@@ -45,7 +48,7 @@ const MyApp = ({ Component, pageProps }) => {
             <Component {...pageProps} />
           </PlayerLayout>
         )}
-      </StoreProviderOverride>
+      </StoreProviderCasted>
     </ChakraProvider>
   );
 };
